@@ -5,7 +5,7 @@ const CHARACTERS = {
 [HERR_DOKTOR]: {
     id: HERR_DOKTOR,
     visible: 0.7,
-    name: 'Herr Doktor von Reichshoffen',
+    name: 'герр Доктор фон Райхсхоффен',
     avatar: {
       gen: '/images/characters/avatars/herr-doktor_gen.png',
       adm: '/images/characters/avatars/herr-doktor_adm.png',
@@ -171,19 +171,19 @@ window.OverworldMaps = {
           { type: "externalEffect", kind: "darkMax", time: 5000},
           { type: "stand", who: HERO, direction: "up", time: 200},
           { type: "stand", who: HERO, direction: "left", time: 200},
-          { type: "textMessage", text: "Ugh...."},
+          { type: "textMessage", text: "Угх...."},
           { type: "stand", who: HERO, direction: "right", time: 200},
           { type: "stand", who: HERO, direction: "down", time: 200},
           { type: "addStoryFlag", flag: "SEEN_INTRO"},
-          { type: "textMessage", text: "... did I fall asleep? Ugh... "},
+          { type: "textMessage", text: "... я уснул? Угх, моя голова... "},
           { type: "stand", who: HERO, direction: "left", time: 200},
-          { type: "textMessage", text: "... wha-at"},
+          { type: "textMessage", text: "... чта"},
           { type: "walk", who: HERR_DOKTOR, direction: "left"},
           { type: "stand", who: HERR_DOKTOR, direction: "up", time: 200},
-          { type: "textMessage", text: "...", character: { name: "ghost???", avatar: CHARACTERS[HERR_DOKTOR].avatar.gen }},
-          { type: "textMessage", text: "WHAT?!"},
+          { type: "textMessage", text: "...", character: { name: "призрак???", avatar: CHARACTERS[HERR_DOKTOR].avatar.gen }},
+          { type: "textMessage", text: "ЧТО?!"},
           { type: "prompt", options: [
-            { text: "run away", actions: [
+            { text: "заорать и убежать", actions: [
               { type: "addStoryFlag",  flag: "INTRO:RAN_AWAY"},
               { type: "textMessage", text: "A-A-A-A!!!"},
               { type: "walk", who: HERO, direction: "right"},
@@ -206,7 +206,7 @@ window.OverworldMaps = {
                 direction: "down"
               }
             ] }, 
-            { text: "keep quiet and watch", actions: [
+            { text: "сидеть тихо и наблюдать", actions: [
               { type: "addStoryFlag",  flag: "INTRO:QUIET_WATCH"},
               { type: "stand", who: HERR_DOKTOR, direction: "up", time: 1000},
               { type: "walk", who: HERR_DOKTOR, direction: "left"},
@@ -221,15 +221,15 @@ window.OverworldMaps = {
                 disappear: true,
                 shadeOptions: "width:14px;height: 18px;top: 60px;left: 9px;border-radius: 50px;filter: blur(3px);"
               },
-              { type: "textMessage", text: "...a-and he went through the bookshelves..."},
-              { type: "textMessage", text: "Of course."},
+              { type: "textMessage", text: "...и-и он прошёл сквозь шкаф..."},
+              { type: "textMessage", text: "Ну конечно."},
             ] }
           ]},
         ]
       }],
       [utils.asGridCoord(4,4)]: [{
         events: [
-          { type: "textMessage", text: "Ugh, it's locked. The security guard should come by the morning."},
+          { type: "textMessage", text: "Ых, закрыто. Охраник, наверное, вернётся только к утру."},
         ]
       }]
     },
@@ -275,7 +275,7 @@ window.OverworldMaps = {
       ],
       [utils.asGridCoord(4,4)]: [{
         events: [
-          { type: "textMessage", text: "Ugh, it's locked. The security guard should come by the morning."},
+          { type: "textMessage", text: "Ых, закрыто. Охраник, наверное, вернётся только к утру."},
         ]
       }]
     },
