@@ -7,8 +7,8 @@ class TitleScreen {
     const safeFile = this.progress.getSaveFile();
     return [
       { 
-        label: "New Game",
-        description: "Start a new adventure!",
+        label: "Новая игра",
+        description: "Начать новую игру",
         handler: () => {
           this.close();
           resolve();
