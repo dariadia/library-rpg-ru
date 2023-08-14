@@ -23,15 +23,15 @@ class Prompt {
 
   getOptions() {
     const backOption = {
-      label: "Go Back",
-      description: "Return to previous page",
+      label: window.translations['Go Back'],
+      description: window.translations['Return to previous page'],
       handler: () => {
         this.keyboardMenu.setOptions(this.getPages())
       }
     };
     let options = this.options.map(option => ({
       label: option.text,
-      description: `Choose what to do: ${option.text}`,
+      description: `${window.translations['Choose what to do']}: ${option.text}`,
       handler: () => {
         this.menuSubmit(option.actions)
       }

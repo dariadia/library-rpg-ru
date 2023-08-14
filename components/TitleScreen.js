@@ -7,16 +7,16 @@ class TitleScreen {
     const safeFile = this.progress.getSaveFile();
     return [
       { 
-        label: "New Game",
-        description: "Start a new adventure!",
+        label: window.translations['New Game'],
+        description: window.translations['Start a new adventure!'],
         handler: () => {
           this.close();
           resolve();
         }
       },
       safeFile ? {
-        label: "Continue Game",
-        description: "Resume your adventure",
+        label: window.translations['Continue Game'],
+        description: window.translations['Resume your adventure'],
         handler: () => {
           this.close();
           resolve(safeFile);

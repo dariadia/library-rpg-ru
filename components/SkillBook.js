@@ -17,12 +17,12 @@ class SkillBook extends GameObject {
       {
         required: [this.storyFlag],
         events: [
-          { type: "textMessage", text: "You have already used this." },
+          { type: "textMessage", text: window.translations['You have already used this'] },
         ]
       },
       {
         events: [
-          { type: "textMessage", text: "Approaching the legendary stone..." },
+          { type: "textMessage", text: window.translations['Approaching the legendary stone'] },
           { type: "craftingMenu", skills: this.skills },
           { type: "addStoryFlag", flag: this.storyFlag },
         ]

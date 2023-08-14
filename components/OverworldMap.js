@@ -9,7 +9,7 @@ const CHARACTERS = {
   [HERR_DOKTOR]: {
     id: HERR_DOKTOR,
     visible: 0.7,
-    name: 'Herr Doktor von Reichshoffen',
+    name: window.translations['Herr Doktor von Reichshoffen'],
     avatar: {
       gen: '/images/characters/avatars/herr-doktor_gen.png',
       adm: '/images/characters/avatars/herr-doktor_adm.png',
@@ -21,7 +21,7 @@ const CHARACTERS = {
   [MRS_T]: {
     id: MRS_T,
     visible: 0.6,
-    name: 'Mrs T',
+    name: window.translations['Mrs T'],
     avatar: {
       gen: '/images/characters/avatars/mrs-t_gen.png',
       upset: '/images/characters/avatars/mrs-t_upset.png'
@@ -192,9 +192,9 @@ window.OverworldMaps = {
       [utils.asGridCoord(11,6)]: [{
         disqualify: ["SEEN_INTRO"],
         events: [
-          { type: "textMessage", text: "February, 29. 1992.", effect: "intro" },
-          { type: "textMessage", text: "Kaliningrad, Russia.", effect: "intro" },
-          { type: "textMessage", text: "You stay late in the library writing your thesis.", effect: "intro", effectType: "text" },
+          { type: "textMessage", text: window.translations["February, 29. 1992."], effect: "intro" },
+          { type: "textMessage", text: window.translations["Kaliningrad, Russia."], effect: "intro" },
+          { type: "textMessage", text: window.translations["You stay late in the library writing your thesis."], effect: "intro", effectType: "text" },
           { type: "externalEffect", kind: "darkMax", time: 5000},
           { type: "stand", who: HERO, direction: "up", time: 200},
           { type: "stand", who: HERO, direction: "left", time: 200},
@@ -202,15 +202,15 @@ window.OverworldMaps = {
           { type: "stand", who: HERO, direction: "right", time: 200},
           { type: "stand", who: HERO, direction: "down", time: 200},
           { type: "addStoryFlag", flag: "SEEN_INTRO"},
-          { type: "textMessage", text: "... did I fall asleep? Ugh... "},
+          { type: "textMessage", text: window.translations["... did I fall asleep? Ugh... "]},
           { type: "stand", who: HERO, direction: "left", time: 200},
-          { type: "textMessage", text: "... wha-at"},
+          { type: "textMessage", text: window.translations["... wha-at"]},
           { type: "walk", who: HERR_DOKTOR, direction: "left"},
           { type: "stand", who: HERR_DOKTOR, direction: "up", time: 200},
-          { type: "textMessage", text: "...", character: { name: "ghost???", avatar: CHARACTERS[HERR_DOKTOR].avatar }},
+          { type: "textMessage", text: "...", character: { name: window.translations["ghost???"], avatar: CHARACTERS[HERR_DOKTOR].avatar }},
           { type: "textMessage", text: "WHAT?!"},
           { type: "prompt", options: [
-            { text: "run away", actions: [
+            { text: window.translations["run away"], actions: [
               { type: "addStoryFlag",  flag: RAN_AWAY, upSkill: '0quick' },
               { type: "textMessage", text: "A-A-A-A!!!"},
               { type: "walk", who: HERO, direction: "right"},
@@ -233,7 +233,7 @@ window.OverworldMaps = {
                 direction: "down"
               }
             ] }, 
-            { text: "keep quiet and watch", actions: [
+            { text: window.translations["keep quiet and watch"], actions: [
               { type: "addStoryFlag",  flag: QUIET_WATCH, upSkill: '0obs'},
               { type: "stand", who: HERR_DOKTOR, direction: "up", time: 1000},
               { type: "walk", who: HERR_DOKTOR, direction: "left"},
@@ -248,15 +248,15 @@ window.OverworldMaps = {
                 disappear: true,
                 shadeOptions: "width:14px;height: 18px;top: 60px;left: 9px;border-radius: 50px;filter: blur(3px);"
               },
-              { type: "textMessage", text: "...a-and he went through the bookshelves..."},
-              { type: "textMessage", text: "Of course."},
+              { type: "textMessage", text: window.translations["...a-and he went through the bookshelves..."]},
+              { type: "textMessage", text: window.translations["Of course."]},
             ] }
           ]},
         ]
       }],
       [utils.asGridCoord(4,4)]: [{
         events: [
-          { type: "textMessage", text: "Ugh, it's locked. The security guard should come by the morning."},
+          { type: "textMessage", text: window.translations["Ugh, it's locked. The security guard should come by the morning."]},
         ]
       }]
     },
@@ -302,7 +302,7 @@ window.OverworldMaps = {
       ],
       [utils.asGridCoord(4,4)]: [{
         events: [
-          { type: "textMessage", text: "Ugh, it's locked. The security guard should come by the morning."},
+          { type: "textMessage", text: window.translations["Ugh, it's locked. The security guard should come by the morning."]},
         ]
       }]
     },
@@ -340,7 +340,7 @@ window.OverworldMaps = {
         src: CHARACTERS[MRS_T].character,
         behaviorLoop: [
           { type: "stand", who: MRS_T, direction: "down", time: 4000},
-          { type: "textMessage", text: "Oh, dear, oh dear!", character: { name: "another ghost???", avatar: CHARACTERS[MRS_T].avatar, emotion: "upset" }},
+          { type: "textMessage", text: window.translations["Oh, dear, oh dear!"], character: { name: window.translations["another ghost???"], avatar: CHARACTERS[MRS_T].avatar, emotion: "upset" }},
           { type: "stand", who: MRS_T, direction: "left", time: 500},
           { type: "stand", who: MRS_T, direction: "right", time: 500},
           { type: "walk", who: MRS_T, direction: "left"},
@@ -349,7 +349,7 @@ window.OverworldMaps = {
           { type: "walk", who: MRS_T, direction: "left"},
           { type: "stand", who: MRS_T, direction: "up", time: 500},
           { type: "stand", who: MRS_T, direction: "right", time: 500},
-          { type: "textMessage", text: "Isn't the weather just lovely today?", character: { name: "another ghost???", avatar: CHARACTERS[MRS_T].avatar }},
+          { type: "textMessage", text: window.translations["Isn't the weather just lovely today?"], character: { name: window.translations["another ghost???"], avatar: CHARACTERS[MRS_T].avatar }},
           { type: "walk", who: MRS_T, direction: "down"},
           { type: "walk", who: MRS_T, direction: "down"},
           { type: "walk", who: MRS_T, direction: "right"},
@@ -364,13 +364,13 @@ window.OverworldMaps = {
           {
             required: ["GREETED_BY_MRS_T"],
             events: [
-              { type: "textMessage", text: "Goodness gracious, where are my manners?", faceHero: MRS_T, character: CHARACTERS[MRS_T], emotion: 'upset' },
-              { type: "textMessage", text: "Please, accept my apologies... I am Mrs... do you happen to know my name?", faceHero: MRS_T, character: CHARACTERS[MRS_T] },
+              { type: "textMessage", text: window.translations["Goodness gracious, where are my manners?"], faceHero: MRS_T, character: CHARACTERS[MRS_T], emotion: 'upset' },
+              { type: "textMessage", text: window.translations["Please, accept my apologies... I am Mrs... do you happen to know my name?"], faceHero: MRS_T, character: CHARACTERS[MRS_T] },
             ]
           },
           {
             events: [
-              { type: "textMessage", text: "Oh, hello, dear. I believe we never were introduced?", faceHero: MRS_T },
+              { type: "textMessage", text: window.translations["Oh, hello, dear. I believe we never were introduced?"], faceHero: MRS_T },
               { type: "question", enemy: CHARACTERS[MRS_T], arena: "hall" },
               { type: "addStoryFlag", flag: "GREETED_BY_MRS_T"},
             ]
@@ -411,7 +411,7 @@ window.OverworldMaps = {
       ],
       [utils.asGridCoord(9,11)]: [{
         events: [
-          { type: "textMessage", text: "Huh? Who's there?"},
+          { type: "textMessage", text: window.translations["Huh? Who's there?"]},
         ]
       }]
       // [utils.asGridCoord(29,9)]: [

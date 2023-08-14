@@ -20,16 +20,16 @@ class PauseMenu {
       return [
         ...lineupSkills,
         {
-          label: "Save",
-          description: "Save your progress",
+          label: `${window.translations['Save']}`,
+          description: `${window.translations['Save your progress']}`,
           handler: () => {
             this.progress.save()
             this.close()
           }
         },
         {
-          label: "Close",
-          description: "Close the pause menu",
+          label: `${window.translations['Close']}`,
+          description: `${window.translations['Close the pause menu']}`,
           handler: () => {
             this.close()
           }
@@ -42,7 +42,7 @@ class PauseMenu {
       const {skillId} = playerState.skills[id]
       const base = Skills[skillId]
       return {
-        label: `Swap for ${base.name}`,
+        label: `${window.translations['Swap for']} ${base.name}`,
         description: base.description,
         handler: () => {
           playerState.swapLineup(pageKey, id)
@@ -54,16 +54,16 @@ class PauseMenu {
     return [
       ...unequipped,
       {
-        label: "Move to front",
-        description: "Move this skill to the front of the list",
+        label: window.translations['Move to front'],
+        description: window.translations['Move this skill to the front of the list'],
         handler: () => {
           playerState.moveToFront(pageKey)
           this.keyboardMenu.setOptions( this.getOptions("root") )
         }
       },
       {
-        label: "Back",
-        description: "Back to root menu",
+        label: window.translations['Back'],
+        description: window.translations['Back to root menu'],
         handler: () => {
           this.keyboardMenu.setOptions( this.getOptions("root") )
         }
@@ -76,7 +76,7 @@ class PauseMenu {
     this.element.classList.add("PauseMenu")
     this.element.classList.add("overlayMenu")
     this.element.innerHTML = (`
-      <h2>Pause Menu</h2>
+      <h2>${window.translations['Pause Menu']}</h2>
     `)
   }
 
