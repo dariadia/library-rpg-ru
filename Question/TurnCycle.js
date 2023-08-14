@@ -50,7 +50,7 @@ class TurnCycle {
     const targetDead = submission.target.hp <= 0
     if (targetDead) {
       await this.onNewEvent({ 
-        type: "textMessage", text: `${submission.target.name} gives in!`
+        type: "textMessage", text: `${submission.target.name} ${window.translations['gives in!']}`
       })
 
       if (submission.target.team === "enemy") {
@@ -80,7 +80,7 @@ class TurnCycle {
       })
       await this.onNewEvent({
         type: "textMessage",
-        text: `${replacement.name} appears!`
+        text: `${replacement.name} ${window.translations['appears!']}`
       })
     }
 
@@ -124,7 +124,7 @@ class TurnCycle {
   async init() {
     await this.onNewEvent({
       type: "textMessage",
-      text: `You approach ${this.question.enemy.name}!`,
+      text: `${window.translations['You approach']} ${this.question.enemy.name}!`,
       caster: { name: "You" }
     })
     this.turn()

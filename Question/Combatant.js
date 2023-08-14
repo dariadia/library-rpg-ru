@@ -87,12 +87,12 @@ class Combatant {
     switch (status) {
       case "disoriented":
         return [
-          { type: "textMessage", text: `${this.name} no longer has any idea what's going on!` },
+          { type: "textMessage", text: `${this.name} ${window.translations["no longer has any idea what's going on!"]}` },
           { type: "stateChange", damage: 3 }
         ]
       case "shocked": 
         return [
-          { type: "textMessage", text: `${this.name} is taken aback!` },
+          { type: "textMessage", text: `${this.name} ${window.translations["is taken aback!"]}` },
           { type: "stateChange", damage: 5 }
         ]
       default:
@@ -104,7 +104,7 @@ class Combatant {
     switch (this.status?.type) {
       case "confident": {
         return [
-          { type: "textMessage", text: "Feelin' confident!" },
+          { type: "textMessage", text: window.translations["Feelin' confident!"] },
           { type: "stateChange", recover: 5, onCaster: true }
         ]
       }
@@ -122,7 +122,7 @@ class Combatant {
         })
         return {
           type: "textMessage",
-          text: "Status expired!"
+          text: window.translations["Status expired!"]
         }
       }
     }
