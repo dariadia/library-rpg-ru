@@ -1,54 +1,48 @@
 class Hud {
   constructor() {
-    this.scoreboards = [];
+    this.scoreboards = []
   }
 
   update() {
     this.scoreboards.forEach(s => {
-      s.update(window.playerState.pizzas[s.id])
+      s.update(window.playerState.skills[s.id])
     })
   }
 
   createElement() {
-
     if (this.element) {
-      this.element.remove();
-      this.scoreboards = [];
+      this.element.remove()
+      this.scoreboards = []
     }
 
-    this.element = document.createElement("div");
-    this.element.classList.add("Hud");
+    this.element = document.createElement("div")
+    this.element.classList.add("Hud")
 
-    const {playerState} = window;
+    const {playerState} = window
     playerState.lineup.forEach(key => {
-      const pizza = playerState.pizzas[key];
+      const skill = playerState.skills[key]
+      if (!skill) return 
       const scoreboard = new Combatant({
         id: key,
-        ...Pizzas[pizza.pizzaId],
-        ...pizza,
+        ...Skills[skill.skillId],
+        ...skill,
       }, null)
-      scoreboard.createElement();
-      this.scoreboards.push(scoreboard);
-      this.element.appendChild(scoreboard.hudElement);
+      scoreboard.createElement()
+      this.scoreboards.push(scoreboard)
+      this.element.appendChild(scoreboard.hudElement)
     })
-    this.update();
+    this.update()
   }
 
   init(container) {
-    this.createElement();
-    container.appendChild(this.element);
-
+    this.createElement()
+    container.appendChild(this.element)
     document.addEventListener("PlayerStateUpdated", () => {
-      this.update();
+      this.update()
     })
-
     document.addEventListener("LineupChanged", () => {
-      this.createElement();
-      container.appendChild(this.element);
+      this.createElement()
+      container.appendChild(this.element)
     })
-
   }
-
-
-
 }

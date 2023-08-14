@@ -1,8 +1,10 @@
 :root {
   --main: #050301;
   --border-color: #291D4D;
+  --radio-border: #484040;
   --dialog-background: #5e3e17;
   --menu-background: #5e3e17;
+  --keys-menu: rgba(94,62,23,0.4);
   --menu-border-color: rgba(255,215,0,1);
   --text-message-action: rgba(255,215,0,1);
   --button-action: rgba(255,215,0,0.8);
@@ -19,7 +21,7 @@ body {
   padding: 0;
   margin: 0;
   overflow: hidden;
-  font-family: 'Oldenburg', cursive;
+  font-family: 'Oldenburg', fantasy;
 }
 .how-to-play {
   position: absolute;
@@ -33,45 +35,28 @@ body {
 
 .game-container {
   position: relative; 
-  top: -90px;
   background: var(--main);
   width: 352px;
   height: 100%;
   margin: 0 auto;
   outline: 1px solid var(--menu-border-color);
-  transform: scale(3) translateY(50%);
+  transform: scale(3) translateY(36%);
 }
 
 .game-container canvas {
   image-rendering: pixelated;
 }
 
-.ExternalEffect {
-  width: 200%;
-  height: 200%;
-  position: absolute;
-  z-index: 10;
-  top: 0;
+input:focus-visible{
+  outline: 1px solid var(--menu-border-color);
 }
 
-.ExternalEffect.darkMin {
-  -webkit-box-shadow: 0px 5px 100px 12px rgba(0, 0, 0, 0.9) inset;
-  -moz-box-shadow: 0px 5px 100px 12px rgba(0, 0, 0, 0.9) inset;
-  box-shadow: 0px 5px 100px 12px rgba(0, 0, 0, 0.9) inset;
+@media screen and (max-width: 1100px) {
+  .game-container {
+    transform: scale(2.5) translateY(40%);
+  }
+  .game-container#mobile {
+    transform: scale(1.9) translateY(25%);
+  }
 }
 
-.ExternalEffect.darkMax {
-  animation: enter 5s ease-out 1;
-	-webkit-animation: enter 5s ease-out 1;
-  background-color: rgba(0, 0, 0, 0.9);
-}
-
-@keyframes enter {
-	0%		{opacity:1;}
-	100%	{opacity:0;}
-}
-
-@-webkit-keyframes enter {
-	0%		{opacity:1;}
-	100%	{opacity:0;}
-}

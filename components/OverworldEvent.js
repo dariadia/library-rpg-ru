@@ -52,7 +52,6 @@ class OverworldEvent {
   }
 
   textMessage(resolve) {
-
     if (this.event.faceHero) {
       const obj = this.map.gameObjects[this.event.faceHero]
       obj.direction = utils.oppositeDirection(this.map.gameObjects["hero"].direction)
@@ -62,6 +61,10 @@ class OverworldEvent {
       text: this.event.text,
       character: this.event.character,
       sayRandom: this.event.sayRandom,
+      emotion: this.event.emotion,
+      cb: this.event.cb,
+      effect: this.event.effect,
+      effectType: this.event.effectType,
       onComplete: () => resolve()
     })
     message.init( document.querySelector(".game-container") )
@@ -94,16 +97,16 @@ class OverworldEvent {
     })
   }
 
-  battle(resolve) {
-    const battle = new Battle({
-      enemy: Enemies[this.event.enemyId],
+  question(resolve) {
+    document.querySelector(".TextMessage")?.remove()
+    const question = new Question({
+      enemy: this.event.enemy,
       arena: this.event.arena || null,
       onComplete: (didWin) => {
         resolve(didWin ? "WON_BATTLE" : "LOST_BATTLE")
       }
     })
-    battle.init(document.querySelector(".game-container"))
-
+    question.init(document.querySelector(".game-container"))
   }
 
   pause(resolve) {
@@ -121,12 +124,14 @@ class OverworldEvent {
 
   addStoryFlag(resolve) {
     window.playerState.storyFlags[this.event.flag] = true
+    if (this.event.upSkill) 
+      playerState.addSkill(this.event.upSkill) 
     resolve()
   }
 
   craftingMenu(resolve) {
     const menu = new CraftingMenu({
-      pizzas: this.event.pizzas,
+      skills: this.event.skills,
       onComplete: () => {
         resolve()
       }

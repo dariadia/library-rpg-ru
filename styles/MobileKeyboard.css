@@ -1,0 +1,52 @@
+.MobileKeyboard {
+  position: absolute;
+  z-index: 10;
+  top: 60%;
+  right: 0;
+  background-color: var(--keys-menu);
+  width: 64px;
+  height: 64px;
+  border-radius: 50px;
+}
+.MobileKey {
+  position: absolute;
+  color: black;
+}
+.MobileKey.left {
+  left: -20%;
+  top: 35%;
+  transform: rotate(180deg);
+}
+.MobileKey.right {
+  left: 75%;
+  top: 35%;
+}
+.MobileKey.up {
+  left: 27%;
+  top: -10%;
+  transform: rotate(270deg);
+}
+.MobileKey.down {
+  left: 27%;
+  top: 80%;
+  transform: rotate(90deg);
+}
+.MobileKey.enter {
+  left: 26%;
+  top: 35%;
+}
+
+.EscButton {
+  position: absolute;
+  top: 11px;
+  right: -11px;
+  transform: rotate(90deg);
+  z-index: 5;
+  font-size: 8px;
+  outline: none;
+  border:none;
+  padding: 4px 6px;
+  background-color: var(--keys-menu);
+  color: var(--text-message-action);
+  opacity: 0.7;
+}

@@ -33,17 +33,36 @@ class Overworld {
     step()
  }
 
- bindActionInput() {
-   new KeyPressListener("Enter", () => {
-     this.map.checkForActionCutscene()
-   })
-   new KeyPressListener("Escape", () => {
-     if (!this.map.isCutscenePlaying) {
+ bindDesktopActionInput() {
+  new KeyPressListener("Enter", () => {
+    this.map.checkForActionCutscene()
+  })
+  new KeyPressListener("Escape", () => {
+    if (!this.map.isCutscenePlaying) {
+     this.map.startCutscene([
+       { type: "pause" }
+     ])
+    }
+  })
+ }
+
+ bindMobileActionInput() {
+  const { escButton, okButton }  = window.playerState.mobileKeyboard
+  okButton.addEventListener("touchstart", () => {
+    this.map.checkForActionCutscene()
+  })
+  escButton.addEventListener("touchstart", () => {
+    if (!this.map.isCutscenePlaying) {
       this.map.startCutscene([
         { type: "pause" }
       ])
      }
-   })
+  })
+ }
+
+ bindActionInput() {
+  if (window.playerState.mobileKeyboard) this.bindMobileActionInput()
+  else this.bindDesktopActionInput()
  }
 
  bindHeroPositionCheck() {
@@ -72,30 +91,42 @@ class Overworld {
   this.progress.startingHeroDirection = this.map.gameObjects.hero.direction
  }
 
- async init() {
+ startGame(container) {
+  this.hud = new Hud()
+  this.hud.init(container)
+  this.startMap(window.OverworldMaps[this.progress.mapId], this.initialHeroState )
+  this.bindActionInput()
+  this.bindHeroPositionCheck()
+  this.directionInput = new DirectionInput()
+  this.directionInput.init()
+  this.startGameLoop()
+ }
 
+ async init() {
   const container = document.querySelector(".game-container")
   this.progress = new Progress()
   this.titleScreen = new TitleScreen({
     progress: this.progress
   })
   const useSaveFile = await this.titleScreen.init(container)
-  let initialHeroState = null
+  this.initialHeroState = null
+
   if (useSaveFile) {
     this.progress.load()
-    initialHeroState = {
+    this.initialHeroState = {
       x: this.progress.startingHeroX,
       y: this.progress.startingHeroY,
       direction: this.progress.startingHeroDirection,
     }
+    this.startGame(container)
+  } else {
+    const heroSelectionScreen = new ChooseCharacter({ container })
+    heroSelectionScreen.init()
+    const isHeroSelected = new Promise(function(resolve) {
+      heroSelectionScreen.onSubmit(resolve)
+    })
+    isHeroSelected.then(() => this.startGame(container))
+
   }
-  this.hud = new Hud()
-  this.hud.init(container)
-  this.startMap(window.OverworldMaps[this.progress.mapId], initialHeroState )
-  this.bindActionInput()
-  this.bindHeroPositionCheck()
-  this.directionInput = new DirectionInput()
-  this.directionInput.init()
-  this.startGameLoop()
  }
 }

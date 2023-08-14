@@ -1,19 +1,39 @@
 const HERR_DOKTOR = 'HerrDoktor'
 const HERO = 'hero'
+const MRS_T = 'MrsT'
+
+const RAN_AWAY = 'INTRO:RAN_AWAY'
+const QUIET_WATCH = 'INTRO:QUIET_WATCH'
 
 const CHARACTERS = {
-[HERR_DOKTOR]: {
+  [HERR_DOKTOR]: {
     id: HERR_DOKTOR,
     visible: 0.7,
-    name: 'герр Доктор фон Райхсхоффен',
+    name: 'Herr Doktor von Reichshoffen',
     avatar: {
       gen: '/images/characters/avatars/herr-doktor_gen.png',
       adm: '/images/characters/avatars/herr-doktor_adm.png',
       happy: '/images/characters/avatars/herr-doktor_happy.png',
       smile: '/images/characters/avatars/herr-doktor_smile.png'
     },
-    character: '/images/characters/people/herr-doktor.png',
-  }
+    character: '/images/characters/icons/herr-doktor.png',
+  },
+  [MRS_T]: {
+    id: MRS_T,
+    visible: 0.6,
+    name: 'Mrs T',
+    avatar: {
+      gen: '/images/characters/avatars/mrs-t_gen.png',
+      upset: '/images/characters/avatars/mrs-t_upset.png'
+    },
+    character: '/images/characters/icons/mrs-t.png',
+    skills: {
+      "a": {
+        skillId: "mrsT",
+        maxHp: 20,
+      }
+    }
+  },
 }
 
 class OverworldMap {
@@ -71,8 +91,8 @@ class OverworldMap {
         case 'Person':
           instance = new Person(object)
           break
-        case 'PizzaStone':
-          instance = new PizzaStone(object)
+        case 'SkillBook':
+          instance = new SkillBook(object)
       }
       this.gameObjects[key] = instance
       this.gameObjects[key].id = key
@@ -89,6 +109,9 @@ class OverworldMap {
     if (isSeenScene.length) return
 
     this.isCutscenePlaying = true
+    const mobileKeyboard = window.playerState.mobileKeyboard
+    if (mobileKeyboard) mobileKeyboard.hide()
+    
 
     for (let i=0; i<events.length; i++) {
       const eventHandler = new OverworldEvent({
@@ -101,6 +124,7 @@ class OverworldMap {
       }
     }
     this.isCutscenePlaying = false
+    mobileKeyboard.show()
   }
 
   checkForActionCutscene() {
@@ -168,23 +192,26 @@ window.OverworldMaps = {
       [utils.asGridCoord(11,6)]: [{
         disqualify: ["SEEN_INTRO"],
         events: [
+          { type: "textMessage", text: "February, 29. 1992.", effect: "intro" },
+          { type: "textMessage", text: "Kaliningrad, Russia.", effect: "intro" },
+          { type: "textMessage", text: "You stay late in the library writing your thesis.", effect: "intro", effectType: "text" },
           { type: "externalEffect", kind: "darkMax", time: 5000},
           { type: "stand", who: HERO, direction: "up", time: 200},
           { type: "stand", who: HERO, direction: "left", time: 200},
-          { type: "textMessage", text: "Угх...."},
+          { type: "textMessage", text: "Ugh...."},
           { type: "stand", who: HERO, direction: "right", time: 200},
           { type: "stand", who: HERO, direction: "down", time: 200},
           { type: "addStoryFlag", flag: "SEEN_INTRO"},
-          { type: "textMessage", text: "... я уснул? Угх, моя голова... "},
+          { type: "textMessage", text: "... did I fall asleep? Ugh... "},
           { type: "stand", who: HERO, direction: "left", time: 200},
-          { type: "textMessage", text: "... чта"},
+          { type: "textMessage", text: "... wha-at"},
           { type: "walk", who: HERR_DOKTOR, direction: "left"},
           { type: "stand", who: HERR_DOKTOR, direction: "up", time: 200},
-          { type: "textMessage", text: "...", character: { name: "призрак???", avatar: CHARACTERS[HERR_DOKTOR].avatar.gen }},
-          { type: "textMessage", text: "ЧТО?!"},
+          { type: "textMessage", text: "...", character: { name: "ghost???", avatar: CHARACTERS[HERR_DOKTOR].avatar }},
+          { type: "textMessage", text: "WHAT?!"},
           { type: "prompt", options: [
-            { text: "заорать и убежать", actions: [
-              { type: "addStoryFlag",  flag: "INTRO:RAN_AWAY"},
+            { text: "run away", actions: [
+              { type: "addStoryFlag",  flag: RAN_AWAY, upSkill: '0quick' },
               { type: "textMessage", text: "A-A-A-A!!!"},
               { type: "walk", who: HERO, direction: "right"},
               { type: "walk", who: HERO, direction: "down"},
@@ -206,8 +233,8 @@ window.OverworldMaps = {
                 direction: "down"
               }
             ] }, 
-            { text: "сидеть тихо и наблюдать", actions: [
-              { type: "addStoryFlag",  flag: "INTRO:QUIET_WATCH"},
+            { text: "keep quiet and watch", actions: [
+              { type: "addStoryFlag",  flag: QUIET_WATCH, upSkill: '0obs'},
               { type: "stand", who: HERR_DOKTOR, direction: "up", time: 1000},
               { type: "walk", who: HERR_DOKTOR, direction: "left"},
               { type: "stand", who: HERR_DOKTOR, direction: "left", time: 500},
@@ -221,15 +248,15 @@ window.OverworldMaps = {
                 disappear: true,
                 shadeOptions: "width:14px;height: 18px;top: 60px;left: 9px;border-radius: 50px;filter: blur(3px);"
               },
-              { type: "textMessage", text: "...и-и он прошёл сквозь шкаф..."},
-              { type: "textMessage", text: "Ну конечно."},
+              { type: "textMessage", text: "...a-and he went through the bookshelves..."},
+              { type: "textMessage", text: "Of course."},
             ] }
           ]},
         ]
       }],
       [utils.asGridCoord(4,4)]: [{
         events: [
-          { type: "textMessage", text: "Ых, закрыто. Охраник, наверное, вернётся только к утру."},
+          { type: "textMessage", text: "Ugh, it's locked. The security guard should come by the morning."},
         ]
       }]
     },
@@ -239,7 +266,7 @@ window.OverworldMaps = {
       "1,3","2,3","3,3","4,3","5,3","6,3","7,3","8,3","9,3","10,3","11,3","12,3",
       "0,3","0,4","0,5","0,6","0,7","0,8","0,9",
       "13,3","13,4","13,5","13,6","13,7","13,8","13,9",
-      "12,9","11,9","9,9","8,9","6,7","7,7","9,7","10,7","11,7",
+      "12,9","11,9","9,9","8,9","6,7","7,7","9,7","10,7","11,7","5,11"
       ].forEach(coord => {
         let [x,y] = coord.split(",")
         walls[utils.asGridCoord(x,y)] = true
@@ -275,7 +302,7 @@ window.OverworldMaps = {
       ],
       [utils.asGridCoord(4,4)]: [{
         events: [
-          { type: "textMessage", text: "Ых, закрыто. Охраник, наверное, вернётся только к утру."},
+          { type: "textMessage", text: "Ugh, it's locked. The security guard should come by the morning."},
         ]
       }]
     },
@@ -285,7 +312,7 @@ window.OverworldMaps = {
       "1,3","2,3","3,3","4,3","5,3","6,3","7,3","8,3","9,3","10,3","11,3","12,3",
       "0,3","0,4","0,5","0,6","0,7","0,8","0,9",
       "13,3","13,4","13,5","13,6","13,7","13,8","13,9",
-      "12,9","11,9","9,9","8,9","6,7","7,7","9,7","10,7","11,7",
+      "12,9","11,9","9,9","8,9","6,7","7,7","9,7","10,7","11,7","5,11"
       ].forEach(coord => {
         let [x,y] = coord.split(",")
         walls[utils.asGridCoord(x,y)] = true
@@ -304,23 +331,48 @@ window.OverworldMaps = {
         x: utils.withGrid(30),
         y: utils.withGrid(10),
       },
-      hallNpcC: {
+      [MRS_T]: {
         type: "Person",
-        x: utils.withGrid(22),
+        x: utils.withGrid(20),
         y: utils.withGrid(10),
-        src: "/images/characters/people/npc2.png",
+        direction: "down",
+        visible: CHARACTERS[MRS_T].visible,
+        src: CHARACTERS[MRS_T].character,
+        behaviorLoop: [
+          { type: "stand", who: MRS_T, direction: "down", time: 4000},
+          { type: "textMessage", text: "Oh, dear, oh dear!", character: { name: "another ghost???", avatar: CHARACTERS[MRS_T].avatar, emotion: "upset" }},
+          { type: "stand", who: MRS_T, direction: "left", time: 500},
+          { type: "stand", who: MRS_T, direction: "right", time: 500},
+          { type: "walk", who: MRS_T, direction: "left"},
+          { type: "walk", who: MRS_T, direction: "left"},
+          { type: "walk", who: MRS_T, direction: "left"},
+          { type: "walk", who: MRS_T, direction: "left"},
+          { type: "stand", who: MRS_T, direction: "up", time: 500},
+          { type: "stand", who: MRS_T, direction: "right", time: 500},
+          { type: "textMessage", text: "Isn't the weather just lovely today?", character: { name: "another ghost???", avatar: CHARACTERS[MRS_T].avatar }},
+          { type: "walk", who: MRS_T, direction: "down"},
+          { type: "walk", who: MRS_T, direction: "down"},
+          { type: "walk", who: MRS_T, direction: "right"},
+          { type: "walk", who: MRS_T, direction: "right"},
+          { type: "walk", who: MRS_T, direction: "right"},
+          { type: "walk", who: MRS_T, direction: "right"},
+          { type: "stand", who: MRS_T, direction: "left", time: 500},
+          { type: "stand", who: MRS_T, direction: "right", time: 500},
+          { type: "stand", who: MRS_T, direction: "down", time: 3000},
+        ],
         talking: [
           {
-            required: ["hallBattle"],
+            required: ["GREETED_BY_MRS_T"],
             events: [
-              { type: "textMessage", text: "You are quite capable.", faceHero: "hallNpcC" },
+              { type: "textMessage", text: "Goodness gracious, where are my manners?", faceHero: MRS_T, character: CHARACTERS[MRS_T], emotion: 'upset' },
+              { type: "textMessage", text: "Please, accept my apologies... I am Mrs... do you happen to know my name?", faceHero: MRS_T, character: CHARACTERS[MRS_T] },
             ]
           },
           {
             events: [
-              { type: "textMessage", text: "You should have just stayed home!", faceHero: "hallNpcC" },
-              { type: "battle", enemyId: "hallBattle" },
-              { type: "addStoryFlag", flag: "hallBattle"},
+              { type: "textMessage", text: "Oh, hello, dear. I believe we never were introduced?", faceHero: MRS_T },
+              { type: "question", enemy: CHARACTERS[MRS_T], arena: "hall" },
+              { type: "addStoryFlag", flag: "GREETED_BY_MRS_T"},
             ]
           },
         ]
@@ -335,7 +387,8 @@ window.OverworldMaps = {
       "34,10","34,11","34,12","34,13","34,14","34,15","34,16","34,17","34,18","34,19",
       "24,20","25,20","26,20","27,20","28,20","29,20","30,20","31,20","32,20","33,20","34,20",
       "23,19","23,18","22,18","18,18","18,19","18,20","18,17","19,20","20,20","21,20","22,20",
-
+      "17,18","16,18","15,18","14,18","13,18","12,19","11,19","10,18","9,18","8,18","7,18","6,19","5,19","4,18",
+      "3,18","3,17","3,16","3,15","3,14","3,13","3,12","3,11","3,10",
       ].forEach(coord => {
         let [x,y] = coord.split(",")
         walls[utils.asGridCoord(x,y)] = true
@@ -356,6 +409,11 @@ window.OverworldMaps = {
           ]
         }
       ],
+      [utils.asGridCoord(9,11)]: [{
+        events: [
+          { type: "textMessage", text: "Huh? Who's there?"},
+        ]
+      }]
       // [utils.asGridCoord(29,9)]: [
       //   {
       //     events: [
@@ -386,8 +444,8 @@ window.OverworldMaps = {
   },
   Shop: {
     id: "Shop",
-    lowerSrc: "/images/maps/PizzaShopLower.png",
-    upperSrc: "/images/maps/PizzaShopUpper.png",
+    lowerSrc: "/images/maps/someRandom.png",
+    upperSrc: "/images/maps/someRandom.png",
     configObjects: {
       hero: {
         type: "Person",
@@ -399,7 +457,7 @@ window.OverworldMaps = {
         type: "Person",
         x: utils.withGrid(6),
         y: utils.withGrid(5),
-        src: "/images/characters/people/npc2.png",
+        src: "/images/characters/icons/npc2.png",
         talking: [
           {
             events: [
@@ -412,7 +470,7 @@ window.OverworldMaps = {
         type: "Person",
         x: utils.withGrid(5),
         y: utils.withGrid(9),
-        src: "/images/characters/people/npc2.png",
+        src: "/images/characters/icons/npc2.png",
         behaviorLoop: [
           { type: "stand", direction: "left", time: 400, },
         ],
@@ -424,12 +482,12 @@ window.OverworldMaps = {
           }
         ]
       },
-      pizzaStone: {
-        type: "PizzaStone",
+      skillBook: {
+        type: "SkillBook",
         x: utils.withGrid(1),
         y: utils.withGrid(4),
         storyFlag: "STONE_SHOP",
-        pizzas: ["v002", "f002"],
+        skills: ["v002", "f002"],
       },
     },
     cutsceneSpaces: {
@@ -524,7 +582,7 @@ window.OverworldMaps = {
         type: "Person",
         x: utils.withGrid(8),
         y: utils.withGrid(8),
-        src: "/images/characters/people/npc2.png",
+        src: "/images/characters/icons/npc2.png",
         behaviorLoop: [
           { type: "stand", direction: "up", time: 400, },
           { type: "stand", direction: "left", time: 800, },
@@ -543,7 +601,7 @@ window.OverworldMaps = {
         type: "Person",
         x: utils.withGrid(1),
         y: utils.withGrid(8),
-        src: "/images/characters/people/npc2.png",
+        src: "/images/characters/icons/npc2.png",
         behaviorLoop: [
           { type: "stand", direction: "up", time: 900, },
           { type: "walk", direction: "down"},
@@ -559,7 +617,7 @@ window.OverworldMaps = {
         talking: [
           {
             events: [
-              { type: "textMessage", text: "Finally... a pizza place that gets me!", faceHero: "darkHallNpcB" },
+              { type: "textMessage", text: "Finally...", faceHero: "darkHallNpcB" },
             ]
           }
         ]
@@ -568,7 +626,7 @@ window.OverworldMaps = {
         type: "Person",
         x: utils.withGrid(3),
         y: utils.withGrid(5),
-        src: "/images/characters/people/npc2.png",
+        src: "/images/characters/icons/npc2.png",
         talking: [
           {
             required: ["chefRootie"],
@@ -577,7 +635,7 @@ window.OverworldMaps = {
           {
             events: [
               { type: "textMessage", text: "Veggies are the fuel for the heart and soul!", faceHero: "darkHallNpcC" },
-              { type: "battle", enemyId: "chefRootie", arena: "dark-hall" },
+              { type: "question", enemy: "chefRootie", arena: "dark-hall" },
               { type: "addStoryFlag", flag: "chefRootie"},
             ]
           }
@@ -662,7 +720,7 @@ window.OverworldMaps = {
         type: "Person",
         x: utils.withGrid(9),
         y: utils.withGrid(6),
-        src: "/images/characters/people/npc2.png",
+        src: "/images/characters/icons/npc2.png",
         behaviorLoop: [
           { type: "walk", direction: "left", },
           { type: "walk", direction: "down", },
@@ -674,7 +732,7 @@ window.OverworldMaps = {
         talking: [
           {
             events: [
-              { type: "textMessage", text: "This place is famous for veggie pizzas!", faceHero: "streetNorthNpcA" },
+              { type: "textMessage", text: "This place is famous for veggie!", faceHero: "streetNorthNpcA" },
             ]
           }
         ]
@@ -683,7 +741,7 @@ window.OverworldMaps = {
         type: "Person",
         x: utils.withGrid(4),
         y: utils.withGrid(12),
-        src: "/images/characters/people/npc2.png",
+        src: "/images/characters/icons/npc2.png",
         behaviorLoop: [
           { type: "stand", direction: "up", time: 400, },
           { type: "stand", direction: "left", time: 800, },
@@ -703,10 +761,10 @@ window.OverworldMaps = {
         type: "Person",
         x: utils.withGrid(12),
         y: utils.withGrid(9),
-        src: "/images/characters/people/npc2.png",
+        src: "/images/characters/icons/npc2.png",
         talking: [
           {
-            required: ["streetNorthBattle"],
+            required: ["streetNorthQuestion"],
             events: [
               { type: "textMessage", text: "Could you be the Legendary one?", faceHero: "streetNorthNpcC" },
             ]
@@ -714,18 +772,18 @@ window.OverworldMaps = {
           {
             events: [
               { type: "textMessage", text: "This is my turf!", faceHero: "streetNorthNpcC" },
-              { type: "battle", enemyId: "streetNorthBattle" },
-              { type: "addStoryFlag", flag: "streetNorthBattle"},
+              { type: "question", enemy: "streetNorthQuestion" },
+              { type: "addStoryFlag", flag: "streetNorthQuestion"},
             ]
           },
         ]
       },
-      pizzaStone: {
-        type: "PizzaStone",
+      skillBook: {
+        type: "SkillBook",
         x: utils.withGrid(2),
         y: utils.withGrid(9),
         storyFlag: "STONE_STREET_NORTH",
-        pizzas: ["v001", "f001"],
+        skills: ["v001", "f001"],
       },
     },
     walls: {
@@ -812,10 +870,10 @@ window.OverworldMaps = {
       ],
     }
   },
-  DiningRoom: {
-    id: "DiningRoom",
-    lowerSrc: "/images/maps/DiningRoomLower.png",
-    upperSrc: "/images/maps/DiningRoomUpper.png",
+  Storage: {
+    id: "Storage",
+    lowerSrc: "/images/maps/StorageLower.png",
+    upperSrc: "/images/maps/StorageUpper.png",
     configObjects: {
       hero: {
         type: "Person",
@@ -823,45 +881,45 @@ window.OverworldMaps = {
         x: utils.withGrid(5),
         y: utils.withGrid(8),
       },
-      diningRoomNpcA: {
+      storageNpcA: {
         type: "Person",
         x: utils.withGrid(12),
         y: utils.withGrid(8),
-        src: "/images/characters/people/npc2.png",
+        src: "/images/characters/icons/npc2.png",
         talking: [
           {
-            required: ["diningRoomBattle"],
+            required: ["storageQuestion"],
             events: [
-              { type: "textMessage", text: "Maybe I am not ready for this place.", faceHero: "diningRoomNpcA" },
+              { type: "textMessage", text: "Maybe I am not ready for this place.", faceHero: "storageNpcA" },
             ]
           },
           {
             events: [
-              { type: "textMessage", text: "You think you have what it takes to cook here?!", faceHero: "diningRoomNpcA" },
-              { type: "battle", enemyId: "diningRoomBattle", arena: "dining-room" },
-              { type: "addStoryFlag", flag: "diningRoomBattle"},
+              { type: "textMessage", text: "You think you have what it takes to cook here?!", faceHero: "storageNpcA" },
+              { type: "question", enemy: "storageQuestion", arena: "storage-room" },
+              { type: "addStoryFlag", flag: "storageQuestion"},
             ]
           },
         ]
       },
-      diningRoomNpcB: {
+      storageNpcB: {
         type: "Person",
         x: utils.withGrid(9),
         y: utils.withGrid(5),
-        src: "/images/characters/people/npc2.png",
+        src: "/images/characters/icons/npc2.png",
         talking: [
           {
             events: [
-              { type: "textMessage", text: "People come from all over to dine here.", faceHero: "diningRoomNpcB" },
+              { type: "textMessage", text: "People come from all over to dine here.", faceHero: "storageNpcB" },
             ]
           },
         ]
       },
-      diningRoomNpcC: {
+      storageNpcC: {
         type: "Person",
         x: utils.withGrid(2),
         y: utils.withGrid(8),
-        src: "/images/characters/people/npc2.png",
+        src: "/images/characters/icons/npc2.png",
         behaviorLoop: [
           { type: "stand", direction: "right", time: 800, },
           { type: "stand", direction: "down", time: 700, },
@@ -870,16 +928,16 @@ window.OverworldMaps = {
         talking: [
           {
             events: [
-              { type: "textMessage", text: "I was so lucky to score a reservation!", faceHero: "diningRoomNpcC" },
+              { type: "textMessage", text: "I was so lucky to score a reservation!", faceHero: "storageNpcC" },
             ]
           },
         ]
       },
-      diningRoomNpcD: {
+      storageNpcD: {
         type: "Person",
         x: utils.withGrid(8),
         y: utils.withGrid(9),
-        src: "/images/characters/people/npc2.png",
+        src: "/images/characters/icons/npc2.png",
         behaviorLoop: [
           { type: "stand", direction: "right", time: 1200, },
           { type: "stand", direction: "down", time: 900, },
@@ -891,7 +949,7 @@ window.OverworldMaps = {
         talking: [
           {
             events: [
-              { type: "textMessage", text: "I've been dreaming of this pizza for weeks!", faceHero: "diningRoomNpcD" },
+              { type: "textMessage", text: "I've been dreaming of this for weeks!", faceHero: "storageNpcD" },
             ]
           },
         ]

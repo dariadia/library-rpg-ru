@@ -1,6 +1,6 @@
 class KeyboardMenu {
   constructor(config={}, hideDescription) {
-    this.options = [] //set by updater method
+    this.options = []
     this.up = null
     this.down = null
     this.prevFocus = null
@@ -66,9 +66,9 @@ class KeyboardMenu {
   }
 
   init(container) {
-    this.createElement();
+    this.createElement()
     if (this.descriptionElement) {
-      (this.descriptionContainer || container).appendChild(this.descriptionElement);
+      (this.descriptionContainer || container).appendChild(this.descriptionElement)
     }
     container.appendChild(this.element)
 

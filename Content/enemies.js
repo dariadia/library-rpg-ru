@@ -1,15 +1,15 @@
 window.Enemies = {
   "erio": {
     name: "Erio",
-    src: "/images/characters/people/npc2.png",
-    pizzas: {
+    src: "/images/characters/icons/npc2.png",
+    skills: {
       "a": {
-        pizzaId: "s001",
+        skillId: "s001",
         maxHp: 50,
         level: 1,
       },
       "b": {
-        pizzaId: "s002",
+        skillId: "s002",
         maxHp: 50,
         level: 1,
       },
@@ -17,11 +17,11 @@ window.Enemies = {
   },
   "beth": {
     name: "Beth",
-    src: "/images/characters/people/npc2.png",
-    pizzas: {
+    src: "/images/characters/icons/npc2.png",
+    skills: {
       "a": {
         hp: 1,
-        pizzaId: "f001",
+        skillId: "f001",
         maxHp: 50,
         level: 1,
       },
@@ -29,48 +29,48 @@ window.Enemies = {
   },
   "chefRootie": {
     name: "Rootie",
-    src: "/images/characters/people/npc2.png",
-    pizzas: {
+    src: "/images/characters/icons/npc2.png",
+    skills: {
       "a": {
-        pizzaId: "f002",
+        skillId: "f002",
         maxHp: 30,
         level: 2,
       }
     }
   },
-  "streetNorthBattle": {
-    name: "Pizza Thug",
-    src: "/images/characters/people/npc2.png",
-    pizzas: {
+  "streetNorthQuestion": {
+    name: "skill Thug",
+    src: "/images/characters/icons/npc2.png",
+    skills: {
       "a": {
-        pizzaId: "s001",
+        skillId: "s001",
         maxHp: 20,
         level: 1,
       }
     }
   },
-  "diningRoomBattle": {
-    name: "Pizza Thug",
-    src: "/images/characters/people/npc2.png",
-    pizzas: {
+  "StorageQuestion": {
+    name: "skill Thug",
+    src: "/images/characters/icons/npc2.png",
+    skills: {
       "a": {
-        pizzaId: "s001",
+        skillId: "s001",
         maxHp: 15,
         level: 1,
       },
       "b": {
-        pizzaId: "s002",
+        skillId: "s002",
         maxHp: 15,
         level: 1,
       }
     }
   },
-  "hallBattle": {
-    name: "Pizza Thug",
-    src: "/images/characters/people/npc2.png",
-    pizzas: {
+  "hallQuestion": {
+    name: "skill Thug",
+    src: "/images/characters/icons/npc2.png",
+    skills: {
       "a": {
-        pizzaId: "f002",
+        skillId: "f002",
         maxHp: 25,
         level: 1,
       }
