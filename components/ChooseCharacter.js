@@ -15,7 +15,7 @@ class ChooseCharacter {
     this.chooseCharacterEl.classList.add("ChooseCharacter_wrapper")
     this.chooseCharacterEl.innerHTML = `
       <section class="ChooseCharacter_skin"> 
-        <h1>Choose your character:</h1>
+        <h1>${window.translations['Choose your character']}:</h1>
         <label for="hero_1">
           <input type="radio" id="hero_1" value="hero_1" name="hero_skin" checked />
           <span class="hero-icon one"></span><span class="hero-icon two"></span>
@@ -30,13 +30,13 @@ class ChooseCharacter {
         </label>
       </section> 
       <section class="ChooseCharacter_pronouns">    
-        <h2>Choose your pronouns:</h2>
+        <h2>${window.translations['Choose your pronouns']}:</h2>
         <label for="they"><input type="radio" id="they" name="pronouns" value="they" checked>They/their</label>
         <label for="she"><input type="radio" id="she" name="pronouns" value="she">She/her</label> 
         <label for="he"><input type="radio" id="he" name="pronouns" value="he">He/his</label>
       </section>
       <section class="ChooseCharacter_name"> 
-        <label for="hero_name">Enter your name:</label>
+        <label for="hero_name">${window.translations['Enter your name']}:</label>
         <input id="hero_name" name="your_name" value="YN">
       </section> 
       <button id="ChooseCharacter_ok">OK</button>`
