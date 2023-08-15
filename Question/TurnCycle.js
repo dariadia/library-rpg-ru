@@ -80,7 +80,7 @@ class TurnCycle {
       })
       await this.onNewEvent({
         type: "textMessage",
-        text: `${replacement.name} ${window.translations['appears!']}`
+        text: `${replacement.name} ${window.translations[submission.target.gender ?'appears!f' : 'appears!m']}`
       })
     }
 

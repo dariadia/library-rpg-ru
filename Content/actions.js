@@ -3,10 +3,11 @@ const shouldGiveClue = (level) =>
     ? window.playerState.clues++ 
     : window.playerState.clues
 
-const isRepeat = (level) => 
-  window.playerState.clues === level
+const isRepeat = (level) => {
+    window.playerState.clues === level
   ? window.translations["You got a clue!"]
   : window.translations["Haven't you heard that somewhere before?"]
+}
 
 window.Actions = {
   ask_name: {
