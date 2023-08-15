@@ -199,7 +199,7 @@ window.OverworldMaps = {
           { type: "externalEffect", kind: "darkMax", time: 5000},
           { type: "stand", who: HERO, direction: "up", time: 200},
           { type: "stand", who: HERO, direction: "left", time: 200},
-          { type: "textMessage", text: "Ugh...."},
+          { type: "textMessage", text: window.translations["Ugh...."]},
           { type: "stand", who: HERO, direction: "right", time: 200},
           { type: "stand", who: HERO, direction: "down", time: 200},
           { type: "addStoryFlag", flag: "SEEN_INTRO"},
