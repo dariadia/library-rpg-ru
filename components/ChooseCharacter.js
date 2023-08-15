@@ -31,9 +31,9 @@ class ChooseCharacter {
       </section> 
       <section class="ChooseCharacter_pronouns">    
         <h2>${window.translations['Choose your pronouns']}:</h2>
-        <label for="they"><input type="radio" id="they" name="pronouns" value="they" checked>They/their</label>
-        <label for="she"><input type="radio" id="she" name="pronouns" value="she">She/her</label> 
-        <label for="he"><input type="radio" id="he" name="pronouns" value="he">He/his</label>
+        <label for="they"><input type="radio" id="they" name="pronouns" value="they" checked>они</label>
+        <label for="she"><input type="radio" id="she" name="pronouns" value="she">она</label> 
+        <label for="he"><input type="radio" id="he" name="pronouns" value="he">он</label>
       </section>
       <section class="ChooseCharacter_name"> 
         <label for="hero_name">${window.translations['Enter your name']}:</label>
