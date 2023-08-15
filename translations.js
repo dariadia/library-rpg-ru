@@ -28,7 +28,7 @@ const translations = {
   'Mrs T': 'фрау Тэ',
   'February, 29. 1992.': '29 февраля 1992 г.',
   'Kaliningrad, Russia.': 'Калининград, Россия.',
-  'You stay late in the library writing your thesis.': 'Ты задерживаешься допоздна в библиотеке, пока пишешь свой диплом.',
+  'You stay late in the library writing your thesis.': 'Ты задерживаешься допоздна в библиотеке, пока пишешь диплом.',
   'Ugh....': 'Ух...',
   '... did I fall asleep? Ugh... ': '... спа-ать... ух.',
   '... wha-at': '... что-о-а?',
