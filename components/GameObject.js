@@ -7,7 +7,7 @@ class GameObject {
     this.direction = config.direction || "down"
     this.sprite = new Sprite({
       gameObject: this,
-      src: config.src || "/images/characters/people/hero.png",
+      src: config.src || `/images/characters/icons/${window.playerState.hero.hero_skin || "hero_1"}.png`,
     })
     this.behaviorLoop = config.behaviorLoop || []
     this.behaviorLoopIndex = 0
@@ -29,9 +29,7 @@ class GameObject {
     if (this.behaviorLoop.length === 0) return
 
     if (map.isCutscenePlaying) {
-      if (this.retryTimeout) {
-        clearTimeout(this.retryTimeout)
-      }
+      if (this.retryTimeout) clearTimeout(this.retryTimeout)
       this.retryTimeout = setTimeout(() => {
         this.doBehaviorEvent(map)
       }, 1000)

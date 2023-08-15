@@ -8,11 +8,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Oldenburg&display=swap" rel="stylesheet">
     <link href="/styles/global.css" type="text/css" rel="stylesheet">
     <link href="/styles/TextMessage.css" type="text/css" rel="stylesheet">
+    <link href="/styles/ChooseCharacter.css" type="text/css" rel="stylesheet">
+    <link href="/styles/ExternalEffect.css" type="text/css" rel="stylesheet">
     <link href="/styles/SceneTransition.css" type="text/css" rel="stylesheet">
     <link href="/styles/KeyboardMenu.css" type="text/css" rel="stylesheet">
+    <link href="/styles/MobileKeyboard.css" type="text/css" rel="stylesheet">
     <link href="/styles/Hud.css" type="text/css" rel="stylesheet">
     <link href="/styles/TitleScreen.css" type="text/css" rel="stylesheet">
-    <link href="/styles/Battle.css" type="text/css" rel="stylesheet">
+    <link href="/styles/Question.css" type="text/css" rel="stylesheet">
     <link href="/styles/Prompt.css" type="text/css" rel="stylesheet">
     <link href="/styles/Combatant.css" type="text/css" rel="stylesheet">
     <link href="/styles/SubmissionMenu.css" type="text/css" rel="stylesheet">
@@ -23,17 +26,15 @@
     <div class="game-container">
       <canvas class="game-canvas" width="352" height="198"></canvas>
     </div>
-     <p class="how-to-play">Используй клавиши со стрелками для перемещения. Enter, чтобы поговорить.</p>
-    <script src="/Content/pizzas.js"></script>
-    <script src="/Content/actions.js"></script>
-    <script src="/Content/enemies.js"></script>
+     <p class="how-to-play">Используйте стрелки, чтобы ходить. Enter, чтобы что-то сделать.</p>
+    <script src="/translations.js"></script>
     <script src="/State/PlayerState.js"></script>
     <script src="/utils.js"></script>
     <script src="/components/DirectionInput.js"></script>
     <script src="/components/Overworld.js"></script>
     <script src="/components/GameObject.js"></script>
     <script src="/components/Person.js"></script>
-    <script src="/components/PizzaStone.js"></script>
+    <script src="/components/SkillBook.js"></script>
     <script src="/components/Sprite.js"></script>
     <script src="/components/OverworldMap.js"></script>
     <script src="/components/OverworldEvent.js"></script>
@@ -42,20 +43,24 @@
     <script src="/components/RevealingText.js"></script>
     <script src="/components/SceneTransition.js"></script>
     <script src="/components/KeyboardMenu.js"></script>
+    <script src="/components/MobileKeyboard.js"></script>
     <script src="/components/Hud.js"></script>
     <script src="/components/Prompt.js"></script>
     <script src="/components/PauseMenu.js"></script>
     <script src="/components/CraftingMenu.js"></script>
+    <script src="/components/ChooseCharacter.js"></script>
     <script src="/components/Progress.js"></script>
     <script src="/components/TitleScreen.js"></script>
-    <script src="/Battle/Battle.js"></script>
-    <script src="/Battle/Combatant.js"></script>
-    <script src="/Battle/Team.js"></script>
-    <script src="/Battle/SubmissionMenu.js"></script>
-    <script src="/Battle/ReplacementMenu.js"></script>
-    <script src="/Battle/BattleEvent.js"></script>
-    <script src="/Battle/TurnCycle.js"></script>
-    <script src="/Battle/BattleAnimations.js"></script>
+    <script src="/Question/Question.js"></script>
+    <script src="/Question/Combatant.js"></script>
+    <script src="/Question/Team.js"></script>
+    <script src="/Question/SubmissionMenu.js"></script>
+    <script src="/Question/ReplacementMenu.js"></script>
+    <script src="/Question/QuestionEvent.js"></script>
+    <script src="/Question/TurnCycle.js"></script>
+    <script src="/Question/QuestionAnimations.js"></script>
+    <script src="/Content/skills.js"></script>
+    <script src="/Content/actions.js"></script>
     <script src="/init.js"></script>
   </body>
 </html>
