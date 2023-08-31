@@ -4,7 +4,7 @@ const shouldGiveClue = (level) =>
     : window.playerState.clues
 
 const isRepeat = (level) => {
-    window.playerState.clues === level
+    window.playerState.clues < level
   ? window.translations["You got a clue!"]
   : window.translations["Haven't you heard that somewhere before?"]
 }
@@ -31,7 +31,7 @@ window.Actions = {
       { type: "textMessage", text: window.translations["I am not dead... Am I? That bookcase looked so heavy."], character: CHARACTERS[MRS_T], emotion: 'upset' },
       { type: "textMessage", text: window.translations["Imagine being buried by that many books all at once!"], character: CHARACTERS[MRS_T] },
       { type: "textMessage", 
-        text: isRepeat(0), 
+        text: () => isRepeat(1), 
         cb: () => shouldGiveClue(0),
       },
       { type: "addStoryFlag", flag: "CLUES:BOOKCASE"},
@@ -49,8 +49,8 @@ window.Actions = {
       { type: "textMessage", text: window.translations["Some days I think I work so much in this library, I might be dead myself!"], character: CHARACTERS[MRS_T] },
       { type: "textMessage", text: window.translations["Haunting a library, can you imagine?"], character: CHARACTERS[MRS_T], emotion: "upset" },
       { type: "textMessage", 
-        text: isRepeat(0), 
-        cb: () => shouldGiveClue(0), 
+        text: () => isRepeat(1), 
+        cb: () => shouldGiveClue(0),
       },
       { type: "addStoryFlag", flag: "CLUES:BOOKCASE"},
       { type: "stateChange", damage: 10 }

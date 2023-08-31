@@ -5,11 +5,13 @@ class QuestionEvent {
   }
   
   textMessage(resolve) {
-    const text = this.event.text
+    this.text = typeof this.event.text === 'string' ? this.event.text : this.event.text()
+    this.text
       .replace("{CASTER}", this.event.caster?.name)
       .replace("{TARGET}", this.event.target?.name)
       .replace("{ACTION}", this.event.action?.name)
       .replace("{HERO}", window.playerState.hero.your_name)
+
 
     const message = new TextMessage({
       text,
