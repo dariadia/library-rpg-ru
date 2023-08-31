@@ -12,15 +12,12 @@ class QuestionEvent {
       .replace("{ACTION}", this.event.action?.name)
       .replace("{HERO}", window.playerState.hero.your_name)
 
-
     const message = new TextMessage({
       text: this.text,
       emotion: this.event.emotion,
       character: this.event.character,
       cb: this.event.cb,
-      onComplete: () => {
-        resolve()
-      }
+      onComplete: () => resolve()
     })
     message.init( this.question.element )
   }
