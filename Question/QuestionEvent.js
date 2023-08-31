@@ -14,7 +14,7 @@ class QuestionEvent {
 
 
     const message = new TextMessage({
-      text,
+      text: this.text,
       emotion: this.event.emotion,
       character: this.event.character,
       cb: this.event.cb,
